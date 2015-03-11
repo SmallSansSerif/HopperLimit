@@ -1,0 +1,55 @@
+change log for     Hopper Limit     by minoneer
+
+v 1.12
+	* updated for PlotMe 0.17-SNAPSHOT b116
+
+v 1.11
+	* updated for PlotMe 0.16
+
+v 1.10
+	* updated for PlotMe 0.15.2
+
+v 1.9
+	* fixed a typo in /hopper search
+	* fixed message display after hopper search is complete
+
+v 1.8
+	* fixed a bug returning wrong numbers for HopperMinecarts
+
+v 1.7
+	* added PlotMe support
+
+v 1.6
+	* added a spam protection timer for hopper placement
+	* added a spam protection timer for /hopper command
+	* added custom cooldown message. params: %cooldown%
+
+v 1.5
+	* fixed a NullPointerException when player right-click on a rail with an empty hand.
+
+v 1.4
+	* fixed a bug not counting hopper minecarts properly.
+
+v 1.3
+	* fixed a NullpointerException with /hopper list without previous search.
+	* fixed a NullPointerException when listing a page that does not exist.
+	* fixed a bug which didn't allow user to place any minecart (instead of only hopper minecarts) in an area with too many hoppers.
+
+v 1.2
+	* added a /hopper tp <id> command, which teleports you to the corresponding search result. permission: hopper.search
+	* fixed the dixplay bugs of /hopper list
+	* fixed /hopper list <page> not working with the page parameter
+
+v 1.1
+	* added a /hopper search command to search in a configurable radius of each player for large amounts of hoppers. permission: hopperlimit.search
+	* added a /hopper list <page> command to list the seach results. permission: hopperlimit.search
+	* added a default /hopper command, which counts the hoppers in the place limit radius. permission: hopperlimit.count
+	* fixed a bug where hopper minecarts disappeared when placing was cancelled.
+	* added config option message.deny, which is shown when placing a hopper is cancelled. params: %limit%, %radius%
+	* added config option message.count, which displays the results of /hopper. params: %limit%, %radius%, %result%
+	* some leftover debug messages removed
+	* some internal code cleanup (more efficient better expandable)
+
+v 1.0
+	* initial release
+	* override-permission: hopperlimit.place
