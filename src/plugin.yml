@@ -3,15 +3,9 @@ version: '1.12'
 main: me.minoneer.hopperlimit.HopperLimit
 author: minoneer
 description: Limits the hopper which can be placed in a defined area
-permissions:
+softdepend: [PlotMe]
 commands:
   hopper:
     description: /hopper help for more information
     usage: /<command>
     permission: hopperlimit.count
-hopperlimit.*:
-  description: OP-Perms
-  children:
-    hopperlimit.count: true
-    hopperlimit.place: true
-    hopperlimit.search: true
