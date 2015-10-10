@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>me.minoneer.bukkit</groupId>
+        <artifactId>parent</artifactId>
+        <version>LATEST</version>
+    </parent>
+    <artifactId>hopperlimit</artifactId>
+    <version>1.12</version>
+    <name>HopperLimit</name>
+    <description>Limits the hopper which can be placed in a defined area</description>
+
+    <repositories>
+        <repository>
+            <id>devsylum-release</id>
+            <name>Devsylum Plugin Release</name>
+            <url>http://repo.devsylum.de/artifactory/all-release</url>
+        </repository>
+    </repositories>
+</project>

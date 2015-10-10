@@ -1,8 +1,8 @@
-name: HopperLimit
-version: '1.12'
+name: ${project.name}
+version: ${project.version}-${build.number}
 main: me.minoneer.hopperlimit.HopperLimit
 author: minoneer
-description: Limits the hopper which can be placed in a defined area
+description: ${project.description}
 softdepend: [PlotMe]
 commands:
   hopper:
