@@ -56,7 +56,7 @@ public class Commands implements CommandExecutor
 
 					plugin.aboveLimit = new ArrayList<LocationValue>();
 
-					final List<String> player = new ArrayList<String>(plugin.getServer().getOnlinePlayers().length);
+					final List<String> player = new ArrayList<String>(plugin.getServer().getOnlinePlayers().size());
 
 					for (Player p : plugin.getServer().getOnlinePlayers())
 					{
