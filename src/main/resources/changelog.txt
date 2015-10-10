@@ -1,5 +1,8 @@
 change log for     Hopper Limit     by minoneer
 
+v 1.13
+    * Revert to PlotMe version 0.16.2
+
 v 1.12
 	* updated for PlotMe 0.17-SNAPSHOT b116
 	* added PlotMe soft dependency
