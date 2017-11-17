@@ -3,28 +3,99 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>me.minoneer.bukkit</groupId>
-        <artifactId>parent</artifactId>
-        <version>LATEST</version>
-    </parent>
+    <groupId>me.minoneer.bukkit</groupId>
     <artifactId>hopperlimit</artifactId>
     <version>1.12</version>
     <name>HopperLimit</name>
     <description>Limits the hopper which can be placed in a defined area</description>
+    <developers>
+        <developer>
+            <name>minoneer</name>
+            <email>minoneer@gmail.com</email>
+        </developer>
+    </developers>
+    <url>https://dev.bukkit.org/projects/hopperlimit</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Replaced by jenkins build parameter -Dbuild.number=${BUILD_NUMBER} -->
+        <build.number>UNKNOWN</build.number>
+        <javaVersion>1.8</javaVersion>
+        <bukkitVersion>1.12-R0.1-SNAPSHOT</bukkitVersion>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.worldcretornica</groupId>
             <artifactId>PlotMe-Core</artifactId>
+            <version>0.16.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>${bukkitVersion}</version>
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>${project.name}</finalName>
+
+        <!-- Filter plugin.yml -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>plugin.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>plugin.yml</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.7.0</version>
+                    <configuration>
+                        <source>${javaVersion}</source>
+                        <target>${javaVersion}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Implementation-Version>${build.number}</Implementation-Version>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
     <repositories>
         <repository>
-            <id>devsylum-release</id>
-            <name>Devsylum Plugin Release</name>
-            <url>http://repo.devsylum.de/artifactory/all-release</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>devsylum-external</id>
+            <url>https://repo.devsylum.de/artifactory/all-external</url>
         </repository>
     </repositories>
+
 </project>

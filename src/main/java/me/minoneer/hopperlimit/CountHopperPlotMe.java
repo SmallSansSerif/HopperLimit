@@ -11,47 +11,39 @@ import org.bukkit.entity.EntityType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountHopperPlotMe extends CountHopper
-{
-    private static List<EntityType> types = new ArrayList<EntityType>(1);
+public class CountHopperPlotMe extends CountHopper {
+    private static List<EntityType> types = new ArrayList<>(1);
 
-    static
-    {
+    static {
         types.add(EntityType.MINECART_HOPPER);
     }
 
     private CountHopper defaultCount = new CountHopperDefault();
 
-    @Override
     /**
      * Searches a radius for hopper and hopper minecarts.
      *
      * @param entity the Entity around which the hoppers should be counted
      * @param radius the horizontal radius in which hoppers are counted
-     * @param limit the limit after which the search is cancelled. -1 for unlimited
+     * @param limit  the limit after which the search is cancelled. -1 for unlimited
      * @return the found hopper, or the limit (whichever is smaller)
      */
-    public int countHopper(Entity ent, int radius, int limit)
-    {
-        if (Util.isPlotWorld(ent.getLocation().getWorld()))
-        {
-            return countHopperPlot(ent, radius, limit);
-        } else
-        {
-            return defaultCount.countHopper(ent, radius, limit);
+    @Override
+    public int countHopper(Entity entity, int radius, int limit) {
+        if (Util.isPlotWorld(entity.getLocation().getWorld())) {
+            return countHopperPlot(entity, limit);
+        } else {
+            return defaultCount.countHopper(entity, radius, limit);
         }
     }
 
 
-    private int countHopperPlot(Entity ent, int radius, int limit)
-    {
+    private int countHopperPlot(Entity ent, int limit) {
         String plotId = PlotMeCoreManager.getInstance().getPlotId(new BukkitLocation(ent.getLocation()));
 
-        if (plotId == null || plotId.isEmpty())
-        {
+        if (plotId == null || plotId.isEmpty()) {
             return 0;
-        } else
-        {
+        } else {
             int hopperCount = 0;
 
             BukkitWorld world = new BukkitWorld(ent.getWorld());
@@ -59,18 +51,13 @@ public class CountHopperPlotMe extends CountHopper
             ILocation loc1 = PlotMeCoreManager.getInstance().getPlotBottomLoc(world, plotId);
             ILocation loc2 = PlotMeCoreManager.getInstance().getPlotTopLoc(world, plotId);
 
-            for (int i = loc1.getBlockX(); i <= loc2.getBlockX(); i++)
-            {
-                for (int k = loc1.getBlockZ(); k <= loc2.getBlockZ(); k++)
-                {
-                    for (int j = world.getWorld().getMaxHeight(); j >= 0; j--)
-                    {
-                        if (world.getWorld().getBlockAt(i, j, k).getType() == Material.HOPPER)
-                        {
+            for (int i = loc1.getBlockX(); i <= loc2.getBlockX(); i++) {
+                for (int k = loc1.getBlockZ(); k <= loc2.getBlockZ(); k++) {
+                    for (int j = world.getWorld().getMaxHeight(); j >= 0; j--) {
+                        if (world.getWorld().getBlockAt(i, j, k).getType() == Material.HOPPER) {
                             ++hopperCount;
 
-                            if (limit > -1 && hopperCount > limit)
-                            {
+                            if (limit > -1 && hopperCount > limit) {
                                 return limit;
                             }
                         }
@@ -82,11 +69,9 @@ public class CountHopperPlotMe extends CountHopper
 
             hopperCount += carts.size();
 
-            if (limit > -1 && hopperCount > limit)
-            {
+            if (limit > -1 && hopperCount > limit) {
                 return limit;
-            } else
-            {
+            } else {
                 return hopperCount;
             }
         }

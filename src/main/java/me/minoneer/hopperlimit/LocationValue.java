@@ -2,47 +2,28 @@ package me.minoneer.hopperlimit;
 
 import org.bukkit.Location;
 
-public class LocationValue
-{
+class LocationValue {
     private Location loc;
     private int value;
 
-    public LocationValue(Location loc, int value)
-    {
-
+    LocationValue(Location loc, int value) {
         this.setLoc(loc);
         this.setValue(value);
     }
 
-    /**
-     * @return the loc
-     */
-    public Location getLoc()
-    {
+    Location getLoc() {
         return loc;
     }
 
-    /**
-     * @param loc the loc to set
-     */
-    public void setLoc(Location loc)
-    {
+    private void setLoc(Location loc) {
         this.loc = loc;
     }
 
-    /**
-     * @return the value
-     */
-    public int getValue()
-    {
+    int getValue() {
         return value;
     }
 
-    /**
-     * @param value the value to set
-     */
-    public void setValue(int value)
-    {
+    private void setValue(int value) {
         this.value = value;
     }
 }

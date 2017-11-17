@@ -11,19 +11,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-public class HopperLimit extends JavaPlugin
-{
-    public static final Permission place = new Permission("hopperlimit.place");
-    public static final Permission search = new Permission("hopperlimit.search");
-    public static final Permission count = new Permission("hopperlimit.count");
+public class HopperLimit extends JavaPlugin {
+    static final Permission place = new Permission("hopperlimit.place");
+    static final Permission search = new Permission("hopperlimit.search");
+    static final Permission count = new Permission("hopperlimit.count");
 
-    public ArrayList<LocationValue> aboveLimit;
-    private HashMap<String, Long> cooldown = new HashMap<String, Long>();
+    ArrayList<LocationValue> aboveLimit;
+    private HashMap<String, Long> cooldown = new HashMap<>();
     private CountHopper countHopper;
 
     @Override
-    public void onDisable()
-    {
+    public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
 
         PluginDescriptionFile desc = this.getDescription();
@@ -32,8 +30,7 @@ public class HopperLimit extends JavaPlugin
     }
 
     @Override
-    public void onEnable()
-    {
+    public void onEnable() {
         loadConfig();
 
         registerCommands();
@@ -42,12 +39,10 @@ public class HopperLimit extends JavaPlugin
 
         Plugin plotMe = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
 
-        if (plotMe != null && plotMe instanceof PlotMe_CorePlugin)
-        {
+        if (plotMe != null && plotMe instanceof PlotMe_CorePlugin) {
             countHopper = new CountHopperPlotMe();
             getLogger().log(Level.INFO, "PlotMe instance found - will use PlotMe-hook.");
-        } else
-        {
+        } else {
             countHopper = new CountHopperDefault();
             getLogger().log(Level.INFO, "No PlotMe instance found - will use default count for all worlds.");
         }
@@ -57,20 +52,17 @@ public class HopperLimit extends JavaPlugin
                 desc.getName(), desc.getVersion()});
     }
 
-    public ConfigHandler config;
+    ConfigHandler config;
 
-    private void loadConfig()
-    {
+    private void loadConfig() {
         config = new ConfigHandler(this);
     }
 
-    private void registerCommands()
-    {
+    private void registerCommands() {
         this.getCommand("hopper").setExecutor(new Commands(this));
     }
 
-    private void registerEvents()
-    {
+    private void registerEvents() {
         new HopperPlaceListener(this);
     }
 
@@ -81,15 +73,12 @@ public class HopperLimit extends JavaPlugin
      * @param seconds the cooldown in seconds
      * @return weather the player has cooldown or not
      */
-    public boolean getAndSetCooldown(String player, int seconds)
-    {
+    boolean getAndSetCooldown(String player, int seconds) {
         long now = System.currentTimeMillis();
         seconds *= 1000;
 
-        if (cooldown.containsKey(player))
-        {
-            if (cooldown.get(player) + seconds > now)
-            {
+        if (cooldown.containsKey(player)) {
+            if (cooldown.get(player) + seconds > now) {
                 return true;
             }
         }
@@ -98,8 +87,7 @@ public class HopperLimit extends JavaPlugin
         return false;
     }
 
-    public CountHopper getCount()
-    {
+    CountHopper getCount() {
         return countHopper;
     }
 }

@@ -3,10 +3,8 @@ package me.minoneer.hopperlimit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class ConfigHandler
-{
-    public ConfigHandler(HopperLimit plugin)
-    {
+class ConfigHandler {
+    ConfigHandler(HopperLimit plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfig();
         loadConfig();
@@ -38,15 +36,7 @@ public class ConfigHandler
     private static final String COOLDOWN_MESSAGE = "message.cooldown";
 
 
-    public void reloadConfig()
-    {
-        this.plugin.reloadConfig();
-        this.config = plugin.getConfig();
-        loadConfig();
-    }
-
-    private void loadConfig()
-    {
+    private void loadConfig() {
 
         this.config.addDefault(PLACE_RADIUS, 40);
         this.config.addDefault(PLACE_LIMIT, 50);
@@ -73,76 +63,39 @@ public class ConfigHandler
         this.cooldownMessage = ChatColor.translateAlternateColorCodes('&', this.config.getString(COOLDOWN_MESSAGE));
     }
 
-
-    /**
-     * @return the placeRadius
-     */
-    public int getPlaceRadius()
-    {
+    int getPlaceRadius() {
         return placeRadius;
     }
 
-    /**
-     * @return the placeLimit
-     */
-    public int getPlaceLimit()
-    {
+    int getPlaceLimit() {
         return placeLimit;
     }
 
-    /**
-     * @return the searchRadius
-     */
-    public int getSearchRadius()
-    {
+    int getSearchRadius() {
         return searchRadius;
     }
 
-    /**
-     * @return the searchLimit
-     */
-    public int getSearchLimit()
-    {
+    int getSearchLimit() {
         return searchLimit;
     }
 
-    /**
-     * @return the denyMessage
-     */
-    public String getDenyMessage()
-    {
+    String getDenyMessage() {
         return denyMessage;
     }
 
-    /**
-     * @return the countMessage
-     */
-    public String getCountMessage()
-    {
+    String getCountMessage() {
         return countMessage;
     }
 
-    /**
-     * @return the cooldownPlace
-     */
-    public int getCooldownPlace()
-    {
+    int getCooldownPlace() {
         return cooldownPlace;
     }
 
-    /**
-     * @return the cooldownCount
-     */
-    public int getCooldownCount()
-    {
+    int getCooldownCount() {
         return cooldownCount;
     }
 
-    /**
-     * @return the cooldown message
-     */
-    public String getCooldownMessage()
-    {
+    String getCooldownMessage() {
         return cooldownMessage;
     }
 }

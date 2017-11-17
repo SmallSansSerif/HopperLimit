@@ -14,16 +14,10 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Util
-{
-    public static void printList(List<String> list)
-    {
-        for (String s : list)
-        {
-            System.out.print(s);
-            System.out.print(";\t");
-        }
-        System.out.println("");
+final class Util {
+
+    private Util() {
+        //static utility class
     }
 
     /**
@@ -34,8 +28,7 @@ public class Util
      * @param types A List of EntityTypes to look for. Put null for all Entities.
      * @return A List with all Entities between loc1 and loc2
      */
-    public static List<Entity> getEntities(World world, ILocation loc1, ILocation loc2, List<EntityType> types)
-    {
+    static List<Entity> getEntities(World world, ILocation loc1, ILocation loc2, List<EntityType> types) {
         Location bukkitLoc1 = new Location(world, loc1.getX(), loc1.getY(), loc1.getZ());
         Location bukkitLoc2 = new Location(world, loc2.getX(), loc2.getY(), loc2.getZ());
         return getEntities(bukkitLoc1, bukkitLoc2, types);
@@ -49,13 +42,10 @@ public class Util
      * @param types A List of EntityTypes to look for. Put null for all Entities.
      * @return A List with all Entities between loc1 and loc2
      */
-    public static List<Entity> getEntities(Location loc1, Location loc2, List<EntityType> types)
-    {
-        if (loc1.getWorld() != loc2.getWorld())
-        {
+    private static List<Entity> getEntities(Location loc1, Location loc2, List<EntityType> types) {
+        if (loc1.getWorld() != loc2.getWorld()) {
             return null;
-        } else
-        {
+        } else {
             correctLocations(loc1, loc2);
 
             int xChunkMin = (int) Math.floor(loc1.getX() / 16.0);
@@ -63,35 +53,30 @@ public class Util
             int zChunkMin = (int) Math.floor(loc1.getZ() / 16.0);
             int zChunkMax = (int) Math.floor(loc2.getZ() / 16.0);
 
-            int chunkCount = Math.abs((xChunkMax - xChunkMin + 1) * (zChunkMax - zChunkMin * 1));
+            int chunkCount = Math.abs((xChunkMax - xChunkMin + 1) * (zChunkMax - zChunkMin + 1));
 
-            List<Entity[]> entLists = new ArrayList<Entity[]>(chunkCount);
+            List<Entity[]> entLists = new ArrayList<>(chunkCount);
 
             int index = 0;
             int entCount = 0;
 
-            for (int x = xChunkMin; x <= xChunkMax; x++)
-            {
-                for (int z = zChunkMin; z <= zChunkMax; z++)
-                {
+            for (int x = xChunkMin; x <= xChunkMax; x++) {
+                for (int z = zChunkMin; z <= zChunkMax; z++) {
                     entLists.add(loc1.getWorld().getChunkAt(x, z).getEntities());
                     entCount += entLists.get(index++).length;
                 }
             }
 
-            List<Entity> entities = new ArrayList<Entity>(entCount / 2);
+            List<Entity> entities = new ArrayList<>(entCount / 2);
 
-            for (Entity[] ents : entLists)
-            {
-                for (Entity ent : ents)
-                {
+            for (Entity[] ents : entLists) {
+                for (Entity ent : ents) {
                     Location loc = ent.getLocation();
 
                     if ((types == null || types.contains(ent.getType())) &&
-                        loc.getX() >= loc1.getX() && loc.getX() < loc2.getX() + 1 &&
-                        loc.getY() >= loc1.getY() && loc.getY() < loc2.getY() + 1 &&
-                        loc.getZ() >= loc1.getZ() && loc.getZ() < loc2.getZ() + 1)
-                    {
+                            loc.getX() >= loc1.getX() && loc.getX() < loc2.getX() + 1 &&
+                            loc.getY() >= loc1.getY() && loc.getY() < loc2.getY() + 1 &&
+                            loc.getZ() >= loc1.getZ() && loc.getZ() < loc2.getZ() + 1) {
                         entities.add(ent);
                     }
                 }
@@ -103,44 +88,29 @@ public class Util
 
     /**
      * corrects the locations, so loc1 is the min and loc2 ist the max
-     *
-     * @param loc1
-     * @param loc2
      */
-    public static void correctLocations(Location loc1, Location loc2)
-    {
-        if (loc1.getX() > loc2.getX())
-        {
+    private static void correctLocations(Location loc1, Location loc2) {
+        if (loc1.getX() > loc2.getX()) {
             double temp = loc1.getX();
             loc1.setX(loc2.getX());
             loc2.setX(temp);
         }
 
-        if (loc1.getY() > loc2.getY())
-        {
+        if (loc1.getY() > loc2.getY()) {
             double temp = loc1.getY();
             loc1.setY(loc2.getY());
             loc2.setY(temp);
         }
 
-        if (loc1.getZ() > loc2.getZ())
-        {
+        if (loc1.getZ() > loc2.getZ()) {
             double temp = loc1.getZ();
             loc1.setZ(loc2.getZ());
             loc2.setZ(temp);
         }
     }
 
-    public static boolean isPlotWorld(World world)
-    {
+    static boolean isPlotWorld(World world) {
         Plugin plugin = Bukkit.getPluginManager().getPlugin("PlotMe");
-
-        if (plugin instanceof PlotMe_CorePlugin)
-        {
-            return PlotMeCoreManager.getInstance().isPlotWorld(new BukkitWorld(world));
-        } else
-        {
-            return false;
-        }
+        return plugin instanceof PlotMe_CorePlugin && PlotMeCoreManager.getInstance().isPlotWorld(new BukkitWorld(world));
     }
 }

@@ -2,8 +2,7 @@ package me.minoneer.hopperlimit;
 
 import org.bukkit.entity.Entity;
 
-public abstract class CountHopper
-{
+public abstract class CountHopper {
     /**
      * Searches a radius for hopper and hopper minecarts.
      *
